@@ -6,24 +6,6 @@ require 'pry'
 require 'sequel'
 require 'sqlite3'
 
-
-set :bind, ip
-set :port, porta
-set :protection, :except => :frame_options
-class Config
-	def self.backend_ip
-		'localhost:3100'
-	end
-end
-
-class Request
-	def self.get(url)
-		uri = URI("http://" + url)
-		resp = Net::HTTP.get_response(uri)
-		JSON.parse resp.body
-	end
-
-
     DB = Sequel.connect('sqlite://usuario.db')
     DB.create_table? :usuarios do
     primary_key :id
@@ -31,4 +13,38 @@ class Request
     String :senha, null:false
     String :codigo, unique:true, null:false
 end
+
 end
+
+get '/index' do erb :create
+    erb :telaCreate
+  end
+  
+  post '/telaCreate' do erb :create #Criar
+    nome_usuario = params[:nome]
+    senha = params[:senha]
+    codigo = params[:codigo]
+    Usuario.create(nome_usuario: nome_usuario, senha: senha, codigo: codigo)
+    erb :telaCreate
+  end
+  
+  get '/telaView/:id' do  #Mostrar
+    @usuarios = Usuario.all
+    erb :telaView
+    end
+  
+  
+    put '/telaEdit/:id' do #Editar
+    @usuario = Usuario[params[:id]]
+    @usuario.update(nome_usuario: params[:nome], senha: params[:senha], codigo: params[:codigo])
+    @usuario.save
+    redirect '/telaCreate'
+  end
+  
+  
+  delete '/telaDelete/:id' do #Excluir
+    @usuario = Usuario.find[params[:id]]
+    @usuario.destroy
+    redirect '/telaCreate'
+  end
+  __END__
