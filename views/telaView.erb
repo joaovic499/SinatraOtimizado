@@ -1,0 +1,14 @@
+<body>
+    <h1>Lista de Usuários</h1>
+    <ul>
+      <% @usuarios.each do |usuario| %>
+        <li>
+          Nome: <%= usuario.nome_usuario %><br>
+          Código: <%= usuario.codigo %>
+         <form action="/usuarios/<%= usuario.id %>/edit" method="get" style="display: inline;">
+            <input type="submit" value="Editar"> <input type="submit" value="Excluir">
+          </form>
+        </li>
+      <% end %>
+    </ul>
+  </body>
