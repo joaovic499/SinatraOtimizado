@@ -1,0 +1,10 @@
+<h1>Editar Usuario</h1>
+<form action="/usuarios/<%= @usuario.id %>" method="post">
+  <label for="edit_nome">Nome:</label>
+  <input type="text" name="nome" value="<%= @usuario.nome_usuario %>">
+  <label for="edit_senha">Senha:</label>
+  <input type="password" name="senha" value="<%= @usuario.senha %>">
+  <label for="edit_codigo">Codigo:</label>
+  <input type="text" name="codigo" value="<%= @usuario.codigo %>">
+  <p><input type="submit" value="Salvar"></p>
+</form>
