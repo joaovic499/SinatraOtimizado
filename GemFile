@@ -1,0 +1,10 @@
+source 'http://rubygems.org'
+
+gem 'sinatra'
+gem 'chartkick'
+gem 'activesupport'
+gem 'whenever'
+gem 'savon'
+gem 'pry'
+gem 'sequel'
+gem 'sqlite3'

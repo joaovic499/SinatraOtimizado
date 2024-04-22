@@ -1,0 +1,34 @@
+require 'sinatra'
+require 'active_support/all'
+require 'net/http'
+require 'json'
+require 'pry'
+require 'sequel'
+require 'sqlite3'
+
+
+set :bind, ip
+set :port, porta
+set :protection, :except => :frame_options
+class Config
+	def self.backend_ip
+		'localhost:3100'
+	end
+end
+
+class Request
+	def self.get(url)
+		uri = URI("http://" + url)
+		resp = Net::HTTP.get_response(uri)
+		JSON.parse resp.body
+	end
+
+
+    DB = Sequel.connect('sqlite://usuario.db')
+    DB.create_table? :usuarios do
+    primary_key :id
+    String :nome_usuario, unique:true, null:false
+    String :senha, null:false
+    String :codigo, unique:true, null:false
+end
+end
