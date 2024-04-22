@@ -14,13 +14,12 @@ require 'sqlite3'
     String :codigo, unique:true, null:false
 end
 
-end
 
-get '/index' do erb :create
+get '/index' do erb :telaCreate
     erb :telaCreate
   end
   
-  post '/telaCreate' do erb :create #Criar
+  post '/telaCreate' do erb :telaCreate #Criar
     nome_usuario = params[:nome]
     senha = params[:senha]
     codigo = params[:codigo]
@@ -47,4 +46,4 @@ get '/index' do erb :create
     @usuario.destroy
     redirect '/telaCreate'
   end
-  __END__
+
